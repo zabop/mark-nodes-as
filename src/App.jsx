@@ -4,7 +4,7 @@ import React, { useState } from "react";
 const auth = window.osmAuth.osmAuth({
   client_id: "Cah_QEsDxE8gjV8EGntqwBk3ucxf2nni6DMm_ubG724",
   scope: "read_prefs",
-  redirect_uri: window.location.origin + window.location.pathname,
+  redirect_uri: "https://zabop.github.io/mark-nodes-as/",
   singlepage: true,
 });
 
