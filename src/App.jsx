@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Initialize auth once outside the component
 const auth = window.osmAuth.osmAuth({
@@ -12,18 +12,21 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
 
-  // Check for auth code in URL immediately during render
-  if (
-    window.location.search.includes("code=") &&
-    !auth.authenticated() &&
-    !user &&
-    !error
-  ) {
-    auth.authenticate(() => {
-      window.history.pushState({}, null, "/mark-nodes-as/");
-      fetchUserDetails();
-    });
-  }
+  useEffect(() => {
+    if (
+      window.location.search.includes("code=") &&
+      !auth.authenticated() &&
+      !user &&
+      !error
+    ) {
+      auth.authenticate(() => {
+        window.history.pushState({}, null, "/mark-nodes-as/");
+        fetchUserDetails();
+      });
+    } else if (auth.authenticated() && !user) {
+      fetchUserDetails(); // if already authenticated but user not fetched
+    }
+  }, []);
 
   function fetchUserDetails() {
     auth.xhr({ method: "GET", path: "/api/0.6/user/details" }, (err, res) => {
