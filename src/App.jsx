@@ -28,6 +28,7 @@ export default function App() {
   function fetchUserDetails() {
     auth.xhr({ method: "GET", path: "/api/0.6/user/details" }, (err, res) => {
       if (err) {
+        console.log("err", err);
         setError("Failed to fetch user details");
         return;
       }
