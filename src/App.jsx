@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-// Initialize auth once outside the component
 const auth = window.osmAuth.osmAuth({
   client_id: "Cah_QEsDxE8gjV8EGntqwBk3ucxf2nni6DMm_ubG724",
   scope: "read_prefs",
@@ -13,18 +12,18 @@ export default function App() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (
-      window.location.search.includes("code=") &&
-      !auth.authenticated() &&
-      !user &&
-      !error
-    ) {
+    if (window.location.search.includes("code=")) {
       auth.authenticate(() => {
-        window.history.pushState({}, null, "/mark-nodes-as/");
-        fetchUserDetails();
+        if (auth.authenticated()) {
+          window.history.pushState({}, null, "/mark-nodes-as/");
+          fetchUserDetails();
+        } else {
+          console.log("Authentication failed");
+          setError("Authentication failed");
+        }
       });
     } else if (auth.authenticated() && !user) {
-      fetchUserDetails(); // if already authenticated but user not fetched
+      fetchUserDetails();
     }
   }, []);
 
