@@ -20,7 +20,7 @@ export default function App() {
     !error
   ) {
     auth.authenticate(() => {
-      window.history.pushState({}, null, window.location.pathname);
+      window.history.pushState({}, null, "/mark-nodes-as/");
       fetchUserDetails();
     });
   }
