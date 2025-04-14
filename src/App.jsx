@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 // Initialize auth once outside the component
 const auth = window.osmAuth.osmAuth({
-  client_id: "JWXSAzNp64sIRMStTnkhMRaMxSR964V4sFgn3KUZNTA",
+  client_id: "Cah_QEsDxE8gjV8EGntqwBk3ucxf2nni6DMm_ubG724",
   scope: "read_prefs",
   redirect_uri: window.location.origin + window.location.pathname,
   singlepage: true,
